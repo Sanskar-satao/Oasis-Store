@@ -1,0 +1,582 @@
+:root {
+    --bg-1: #0b0b0f;
+    --bg-2: #111217;
+    --accent: #3782f9;
+    --accent-2: #246ee2;
+    --muted: #ffffff;
+    --glass: rgba(255, 255, 255, 0.06);
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --radius: 14px;
+    --glass-blur: 14px;
+    --hero-height: 360px;
+    --hero-width: 920px;
+    --sidebar-width: 72px;
+    --sidebar-expanded: 220px;
+    --glow: 0 8px 30px rgba(56, 130, 249, 0.12);
+}
+
+/* ---------- Reset & base ---------- */
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: url("https://static.vecteezy.com/system/resources/previews/021/171/680/large_2x/colorful-abstract-wallpaper-modern-background-ai-generated-free-photo.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #e8eef8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/*---------- Custom cursor ---------- */
+.ms-cursor {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.151);
+    box-shadow:
+        0px 0px 90px rgb(255, 255, 255),
+        0px 0px 180px rgb(255, 255, 255);
+    transform: translate(-50%, -50%);
+}
+
+/* ---------- Topbar (aligned with sidebar) ---------- */
+.topbar.topbar--ms {
+    position: sticky;
+    top: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 22px;
+    gap: 12px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.219), rgba(0, 0, 0, 0.299));
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.181);
+    transition: left .22s ease;
+    z-index: 150;
+    border-radius: 10px;
+}
+
+.ms-sidebar:not(.collapsed)+.topbar.topbar--ms {
+    left: var(--sidebar-expanded);
+}
+
+/* brand */
+.brand h1 {
+    margin: 0;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 0.3px
+}
+
+/* controls */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.controls input {
+    width: 320px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--muted);
+    outline: none;
+    transition: box-shadow .12s;
+}
+
+.controls select {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0);
+    border: none;
+    color: rgb(255, 0, 0);
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer
+}
+
+/* ---------- Main + hero ---------- */
+.ms-main {
+    margin-top: 12px;
+    transition: margin-left .22s ease;
+    padding: 18px;
+}
+
+/* hero (restored original look) */
+.hero {
+    width: var(--hero-width);
+    max-width: calc(100% - 40px);
+    height: var(--hero-height);
+    margin: 18px auto;
+    padding: 18px;
+    position: relative;
+    border-radius: 16px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.005));
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+}
+
+.hero-carousel {
+    width: 100%;
+    height: calc(var(--hero-height) - 80px);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    gap: 20px;
+    padding: 22px;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform .6s cubic-bezier(.2, .9, .2, 1), opacity .45s;
+}
+
+.hero-slide.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.hero-slide.exit-left {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.hero-slide .left {
+    flex: 1;
+    max-width: 68%
+}
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(24px, 2.4vw, 32px);
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 6px 20px rgba(0, 0, 0, 0.5)
+}
+
+.hero-sub {
+    margin-top: 10px;
+    color: var(--muted)
+}
+
+.cta-btn {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cta-primary {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #fff
+}
+
+.cta-ghost {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--muted);
+    border: 1px solid rgba(255, 255, 255, 0.03)
+}
+
+.hero-slide .right {
+    flex: 0 0 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.hero-slide .right img {
+    width: 220px;
+    height: 220px;
+    border-radius: 18px;
+    object-fit: cover;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6)
+}
+
+.hero-controls {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 18px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center
+}
+
+.icon-btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    cursor: pointer
+}
+
+.progress-wrap {
+    width: 48%;
+    background: rgba(255, 255, 255, 0.03);
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transition: width linear
+}
+
+/* dots */
+.hero-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: center
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: transform .12s
+}
+
+.dot.active {
+    background: var(--accent);
+    transform: scale(1.2)
+}
+
+/* ---------- Featured + Filters + Grid ---------- */
+.container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 18px auto;
+    padding: 0 12px;
+}
+
+.featured {
+    margin-bottom: 18px;
+    border-radius: 16px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.005));
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+    padding: 15px 15px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.featured-grid {
+    display: flex;
+    gap: 10px;
+    overflow: auto;
+    padding-bottom: 5px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.268);
+}
+
+.feature-card {
+    min-width: 240px;
+    background-color: #0000005f;
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    transition: 0.3s ease;
+}
+
+.feature-card:hover {
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.6);
+    transform: scale(1.06);
+    transition: 0.3s ease;
+}
+
+.feature-card img {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    object-fit: cover
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin: 12px 0 18px 0;
+    flex-wrap: wrap
+}
+
+.filter-btn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer
+}
+
+.filter-btn.active {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #ffffff;
+    border-color: var(--accent)
+}
+
+/* app grid */
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    border-radius: 16px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.005));
+    box-shadow: 0 0 50px rgb(0, 0, 0);
+    backdrop-filter: blur(10px);
+}
+
+.app-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border-radius: 12px;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+    backdrop-filter: blur(8px);
+    transition: 0.3s ease;
+    margin-top: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    box-shadow: 0 0 50px black;
+}
+
+.app-card:hover {
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.6);
+    transform: scale(1.06);
+    transition: 0.3s ease;
+}
+
+.app-card img {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    object-fit: cover;
+    align-self: center;
+}
+
+/* modal (preserved look) */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999
+}
+
+.modal-close {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 20px;
+    cursor: pointer;
+    transition: color .15s;
+}
+
+.modal-close:hover {
+    color: #fff;
+}
+
+.modal[aria-hidden="false"] {
+    display: flex
+}
+
+.modal-panel {
+    width: 92%;
+    max-width: 700px;
+    border-radius: 16px;
+    background: rgba(30, 30, 35, 0.95);
+    padding: 24px;
+    position: relative;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.8)
+}
+
+.modal-body {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start
+}
+
+.modal-body img {
+    width: 108px;
+    height: 108px;
+    border-radius: 18px;
+    object-fit: cover
+}
+
+.modal-info h3 {
+    margin: 0 0 6px 0
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px
+}
+
+.primary-btn {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: var(--muted)
+}
+
+.install-progress-wrap {
+    margin-top: 16px;
+    position: relative;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    overflow: hidden
+}
+
+.install-progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #7ee7ff, #00b4d8);
+    transition: width .35s ease
+}
+
+/* footer aligned with main area */
+footer {
+    margin-left: var(--sidebar-width);
+    padding: 14px 18px;
+    color: var(--muted);
+    text-align: center
+}
+
+.ms-sidebar:not(.collapsed)~footer {
+    margin-left: var(--sidebar-expanded)
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+    :root {
+        --hero-width: 92vw;
+    }
+
+    .ms-sidebar {
+        position: fixed;
+        z-index: 400;
+        left: 0;
+        top: 0;
+        bottom: 0
+    }
+
+    .ms-sidebar:not(.collapsed)+.topbar.topbar--ms,
+    .ms-sidebar:not(.collapsed)~.ms-main {
+        left: calc(var(--sidebar-expanded));
+    }
+
+    .ms-sidebar.collapsed+.topbar.topbar--ms,
+    .ms-sidebar.collapsed~.ms-main {
+        left: calc(var(--sidebar-width));
+    }
+
+    .topbar.topbar--ms {
+        left: calc(var(--sidebar-width));
+        right: 0;
+        width: calc(100% - var(--sidebar-width));
+    }
+
+    footer {
+        margin-left: calc(var(--sidebar-width));
+    }
+}
+
+/* ---------- Light theme (optional) ---------- */
+body.light {
+    --bg-1: #f7f9fc;
+    --bg-2: #eef3fb;
+    color: #0b1220;
+}
+
+body.light .ms-sidebar {
+    background: rgba(255, 255, 255, 0.85);
+    border-right-color: rgba(0, 0, 0, 0.06)
+}
+
+body.light .topbar.topbar--ms {
+    background: rgba(255, 255, 255, 0.85);
+    border-bottom-color: rgba(0, 0, 0, 0.04)
+}
+
+body.light .app-card {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.01));
+    color: #0b1220
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

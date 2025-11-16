@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Oasis Store</title>
+    <meta name="description" content="Discover, filter, and install the best desktop apps." />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="ms-cursor"></div>
+
+    <!-- TOPBAR (keeps your original topbar but aligned) -->
+    <header class="topbar topbar--ms">
+        <div class="brand">
+            <h1>Oasis Store</h1>
+        </div>
+
+        <div class="controls">
+            <input id="search" placeholder="Search apps..." aria-label="Search applications" />
+            <select id="sortSelect" aria-label="Sort apps" title="Sort apps">
+                <option value="none">Sort</option>
+                <option value="alpha">A → Z</option>
+                <option value="new">Newest</option>
+            </select>
+
+            <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-pressed="false">🌓</button>
+        </div>
+    </header>
+
+    <!-- MAIN AREA: hero (center) + content -->
+    <div class="ms-main" id="mainWrap">
+        <!-- HERO (restored original hero carousel) -->
+        <section class="hero" aria-label="Hero carousel">
+            <div class="hero-carousel" id="heroCarousel" aria-live="polite"></div>
+
+            <div class="hero-controls">
+                <button id="heroPrev" class="icon-btn" aria-label="Previous Ad">◀</button>
+                <div class="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div id="heroProgress" class="progress-bar"></div>
+                </div>
+                <button id="heroNext" class="icon-btn" aria-label="Next Ad">▶</button>
+            </div>
+
+            <div class="hero-dots" id="heroDots"></div>
+        </section>
+
+        <!-- CONTENT -->
+        <main class="container" id="mainContainer">
+            <section class="featured">
+                <h2>Featured</h2>
+                <div id="featuredGrid" class="featured-grid" aria-live="polite"></div>
+            </section>
+
+            <section class="filters" id="categoryFilters" aria-label="Category filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="Browser">Browsers</button>
+                <button class="filter-btn" data-category="Developer">Developer</button>
+                <button class="filter-btn" data-category="Social">Social</button>
+                <button class="filter-btn" data-category="Productivity">Productivity</button>
+                <button class="filter-btn" data-category="Entertainment">Entertainment</button>
+            </section>
+
+            <section class="all-apps">
+                <div id="appGrid" class="app-grid" role="list"></div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 Oasis Store | Made In India</p>
+    </footer>
+
+    <!-- APP DETAILS MODAL (unchanged IDs & structure - preserved) -->
+    <div id="appModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-panel">
+            <button id="closeModal" class="modal-close" aria-label="Close dialog">✖</button>
+            <div class="modal-body">
+                <img id="modalIcon" alt="App icon" />
+                <div class="modal-info">
+                    <h3 id="modalName"></h3>
+                    <p id="modalDesc"></p>
+                    <div class="modal-actions">
+                        <button id="downloadBtn" class="primary-btn">Download from official website</button>
+                        <button id="installBtn" class="secondary-btn">Install (simulate)</button>
+                    </div>
+                    <div id="installProgressWrap" class="install-progress-wrap hidden">
+                        <div id="installProgress" class="install-progress"></div>
+                        <span id="installProgressLabel">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App card template (unchanged) -->
+    <template id="appCardTemplate">
+        <div class="app-card" tabindex="0" role="button">
+            <img src="" alt="" loading="lazy" />
+            <h4></h4>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
